@@ -19,14 +19,14 @@ LoginController.login = function(req, res) {
 			
 			model.atualizaToken(dataLogin._id, dadosUsuario, function(err, data) {
 				
-				var ret = {
+				var dadosRetorno = {
 				  id: dataLogin._id,
 				  data_criacao: dataLogin.data_criacao,
 				  data_atualizacao: dadosUsuario.data_atualizacao,
 				  ultimo_login: dadosUsuario.ultimo_login,
 				  token: dadosUsuario.token
 				};
-				res.status(200).json(ret);
+				res.status(200).json(dadosRetorno);
 			});
 			
 		} else {
