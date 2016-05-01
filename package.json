@@ -1,0 +1,27 @@
+{
+  "name": "desafio",
+  "version": "1.0.0",
+  "description": "Desafio Concrete",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "skiwalker"
+  },
+  "author": "Thiago de Jesus",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "config": "^1.20.1",
+    "express": "^4.13.4",
+    "jsonwebtoken": "^6.2.0",
+    "md5": "^2.1.0",
+    "moment": "^2.13.0",
+    "mongojs": "^2.4.0",
+    "mongoose": "^4.4.14",
+    "sha-1": "^0.1.1",
+    "uuid": "^2.0.2"
+  }
+}
