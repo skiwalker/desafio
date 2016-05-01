@@ -24,15 +24,6 @@ UsuarioModel.validaEmail = function(email, callback) {
   });
 };
 
-UsuarioModel.autentica = function(data, callback) {
-  var q = { email: data.email, senha: sha1(md5(data.senha)) };
-  db.collection('usuarios').findOne(q, callback);
-};
-
-UsuarioModel.atualizaToken = function(_id, data, callback) {
-  var q = { _id: _id };
-  db.collection('usuarios').update(q, { $set: data }, callback);
-};
 
 UsuarioModel.buscar = function(_id, token, callback) {
 	  
@@ -44,7 +35,6 @@ UsuarioModel.buscar = function(_id, token, callback) {
 	  if(err) {
 		callback(err);
 	  }
-	  console.log('models...', data);
 	  callback(null, data);
   });
 };

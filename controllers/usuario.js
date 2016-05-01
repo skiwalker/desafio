@@ -25,17 +25,17 @@ UsuarioController.cadastrar = function(req, res, next) {
 	model.validaEmail(dadosUsuario.email, function(err, data) {
 		if(!data) { 
 		
-			model.cadastrar(dadosUsuario, function(err, data) {
-				
+			model.cadastrar(dadosUsuario, function(err, dataCadastro) {
+								
 				var dadosRetorno = {
-					id: data._id,
-					data_criacao: data.data_criacao,
-					data_atualizacao: data.data_atualizacao,
-					ultimo_login: data.ultimo_login,
-					ultimo_login: data.token
-				 };
+					id: dataCadastro._id,
+					data_criacao: dataCadastro.data_criacao,
+					data_atualizacao: dataCadastro.data_atualizacao,
+					ultimo_login: dataCadastro.ultimo_login,
+					token: dataCadastro.token
+				};
+				res.status(200).json(dadosRetorno);
 			});
-			res.status(200).json(dadosUsuario);
 			
 		} else {
 			res.status(200).json({mensagem:'E-mail já existente'});
@@ -48,16 +48,21 @@ UsuarioController.buscar = function(req, res) {
 	var idUsuario 	= req.params;
 	var token 		= req.headers.bearer;
 	
-	console.log('toke->', token);
-	
-	
-	
 	model.buscar(idUsuario, token, function(err, data) {
 		
-		//console.log('data===', data);
-		
+		if(!data) {
+			res.status(401).json({ mensagem: 'Não autorizado' });
+		} else {
+			jwt.verify(data.token, 'cs-desafio-node', function(err) {
+            if (err) {
+              res.status(403).json({ mensagem: 'Sessão Expirada' });
+            } else {
+              res.status(200).json(data);
+            }
+          });
+		}
 	});
-	res.status(200).json({mensagem:'buscado'});
+	
 }
 
 module.exports = UsuarioController;
